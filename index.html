@@ -1,23 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <title>Simple Shopping Cart</title>
 
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous"></script>
-    <script src="js/application.js"></script>
-
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+    <script src="js/application.js"></script>
   </head>
-  <body>
+  <body class="container mt-5">
+
+    <h2 class="mb-4 text-center">Shopping Cart</h2>
+
+    <table class="table table-bordered text-center" id="cart-table">
+      <thead class="table-primary">
+        <tr>
+          <th>Item</th>
+          <th>Price ($)</th>
+          <th>Quantity</th>
+          <th>Subtotal ($)</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pineapple</td>
+          <td class="price">3.50</td>
+          <td><input type="number" class="form-control quantity" value="1" min="1"></td>
+          <td class="subtotal">3.50</td>
+          <td><button class="btn btn-danger btn-sm delete">X</button></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-end"><strong>Total:</strong></td>
+          <td id="total">3.50</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="card p-3 mt-4">
+      <h5>Add New Item</h5>
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input type="text" id="new-item" class="form-control" placeholder="Item name">
+        </div>
+        <div class="col-md-3">
+          <input type="number" id="new-price" class="form-control" placeholder="Price" min="0" step="0.01">
+        </div>
+        <div class="col-md-3">
+          <input type="number" id="new-quantity" class="form-control" placeholder="Quantity" min="1" value="1">
+        </div>
+        <div class="col-md-2">
+          <button id="add-item" class="btn btn-success w-100">Add</button>
+        </div>
+      </div>
+    </div>
 
   </body>
 </html>
+

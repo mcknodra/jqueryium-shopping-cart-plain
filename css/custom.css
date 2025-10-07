@@ -1,0 +1,27 @@
+body {
+  background-color: #f8f9fa;
+}
+
+table {
+  background: white;
+}
+
+#cart-table input {
+  text-align: center;
+}
+
+#total {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.card {
+  max-width: 700px;
+  margin: auto;
+}
+.quantity {
+  width: 70px !important;
+  height: 30px !important;
+  padding: 2px 5px !important;
+  font-size: 14px;
+}
