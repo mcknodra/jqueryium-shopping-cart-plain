@@ -1,14 +1,13 @@
 $(document).ready(function () {
 
- function updateSubtotal(row) {
-  const price = parseFloat(row.find('.price').text());
-  const qty = parseInt(row.find('.quantity').val());
-  const validPrice = isNaN(price) ? 0 : price;
-  const validQty = isNaN(qty) ? 0 : qty;
-  const subtotal = (validPrice * validQty).toFixed(2);
-  row.find('.subtotal').text(subtotal);
-}
-
+  function updateSubtotal(row) {
+    const price = parseFloat(row.find('.price').text());
+    const qty = parseInt(row.find('.quantity').val());
+    const validPrice = isNaN(price) ? 0 : price;
+    const validQty = isNaN(qty) ? 0 : qty;
+    const subtotal = (validPrice * validQty).toFixed(2);
+    row.find('.subtotal').text(subtotal);
+  }
 
   function updateTotal() {
     let total = 0;
@@ -19,7 +18,7 @@ $(document).ready(function () {
   }
 
   let debounceTimer;
-  
+
   $('#cart-table').on('input', '.quantity', function () {
     const row = $(this).closest('tr');
     clearTimeout(debounceTimer);
@@ -27,7 +26,6 @@ $(document).ready(function () {
       updateSubtotal(row);
       updateTotal();
     }, 300);
-  
   });
 
   $('#cart-table').on('click', '.delete', function () {
@@ -35,18 +33,21 @@ $(document).ready(function () {
     updateTotal();
   });
 
-  $('#add-item').click(function () {
+  function addItem() {
     const name = $('#new-item').val().trim();
-    const price = parseFloat($('#new-price').val());
+    const rawPrice = parseFloat($('#new-price').val());
     const qty = parseInt($('#new-quantity').val());
 
-    if (!name || isNaN(price) || isNaN(qty)) return;
+    if (!name || isNaN(rawPrice) || isNaN(qty) || qty <= 0) return;
 
-    const subtotal = (price * qty).toFixed(2);
+    // Converting price to dollar and cents
+    const priceInDollars = rawPrice / 100;
+
+    const subtotal = (priceInDollars * qty).toFixed(2);
     const newRow = `
       <tr>
         <td>${name}</td>
-        <td class="price">${price.toFixed(2)}</td>
+        <td class="price">${priceInDollars.toFixed(2)}</td>
         <td><input type="number" class="form-control quantity" value="${qty}" min="1"></td>
         <td class="subtotal">${subtotal}</td>
         <td><button class="btn btn-danger btn-sm delete">X</button></td>
@@ -56,17 +57,22 @@ $(document).ready(function () {
     $('#cart-table tbody').append(newRow);
     $('#new-item').val('');
     $('#new-price').val('');
-    $('#new-quantity').val(1);
-    updateTotal();
-  });
+    $('#new-quantity').val('');
 
-   $('#new-quantity').on('keypress', function (e) {
+    updateTotal();
+
+    // Move cursor back to Item field
+    $('#new-item').focus();
+  }
+  $('#add-item').click(addItem);
+  $('#new-quantity').on('keypress', function (e) {
     if (e.key === 'Enter') {
       e.preventDefault();
-      $('#add-item').click(); 
+      addItem();
     }
   });
-
+    // Move cursor to Item field on page load
+  $('#new-item').focus();
 
   updateTotal();
 });
