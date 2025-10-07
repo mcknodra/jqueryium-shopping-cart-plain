@@ -56,8 +56,9 @@ $(document).ready(function () {
     $('#cart-table tbody').append(newRow);
     $('#new-item').val('');
     $('#new-price').val('');
-    $('#new-quantity').val(1);
+    $('#new-quantity').val('');
     updateTotal();
+    $('#new-item').focus();
   });
 
    $('#new-quantity').on('keypress', function (e) {
@@ -66,7 +67,7 @@ $(document).ready(function () {
       $('#add-item').click(); 
     }
   });
-
+    
 
   updateTotal();
 });
