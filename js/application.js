@@ -35,19 +35,16 @@ $(document).ready(function () {
 
   function addItem() {
     const name = $('#new-item').val().trim();
-    const rawPrice = parseFloat($('#new-price').val());
+     const price = parseFloat($('#new-price').val());
     const qty = parseInt($('#new-quantity').val());
 
-    if (!name || isNaN(rawPrice) || isNaN(qty) || qty <= 0) return;
-
-    // Converting price to dollar and cents
-    const priceInDollars = rawPrice / 100;
-
-    const subtotal = (priceInDollars * qty).toFixed(2);
+    if (!name || isNaN(price) || isNaN(qty)) return;
+    
+    const subtotal = (price * qty).toFixed(2);
     const newRow = `
       <tr>
         <td>${name}</td>
-        <td class="price">${priceInDollars.toFixed(2)}</td>
+        <td class="price">${price.toFixed(2)}</td>
         <td><input type="number" class="form-control quantity" value="${qty}" min="1"></td>
         <td class="subtotal">${subtotal}</td>
         <td><button class="btn btn-danger btn-sm delete">X</button></td>
@@ -62,7 +59,7 @@ $(document).ready(function () {
     updateTotal();
 
     // Move cursor back to Item field
-    $('#new-item').focus();
+    $('#new-item').focus()
   }
   $('#add-item').click(addItem);
   $('#new-quantity').on('keypress', function (e) {
